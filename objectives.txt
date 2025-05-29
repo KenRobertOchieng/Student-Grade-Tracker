@@ -1,0 +1,47 @@
+(1) student
+
+  id (PK)
+  first_name, last_name
+  email (unique)
+  date_of_birth
+  enrollment_date
+
+(2) course
+
+  id (PK)
+  code (e.g. “MATH101”, unique)
+  title, description
+  credits or weight
+  semester or term
+
+(3) instructor (optional)
+
+  id (PK)
+  first_name, last_name
+  email (unique)
+  office_location
+
+ (4) assignment
+
+  id (PK)
+  title, description
+  due_date
+  max_score
+  course_id (FK → course.id)
+
+(5) Enrollment (join table for Students ↔ Courses)
+
+  student_id (FK → student.id)
+  course_id (FK → course.id)
+  enrollment_date
+  status (e.g. “active”, “dropped”)
+  PRIMARY KEY on (student_id, course_id)
+
+6. Grade (join table for Students ↔ Assignments)
+
+  student_id (FK → student.id)
+  assignment_id (FK → assignment.id)
+  score (numeric)
+  graded_on (date)
+  feedback (text)
+  PRIMARY KEY on (student_id, assignment_id)
