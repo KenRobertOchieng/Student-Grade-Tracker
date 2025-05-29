@@ -21,13 +21,15 @@ class Enrollment(Base):
         Integer,
         ForeignKey('student.id'),
         primary_key=True,
-        autoincrement=False)
+        autoincrement=False
+        )
     
     course_id=Column(
         Integer,
         ForeignKey('course.id'),
         primary_key=True,
-        autoincrement=False)
+        autoincrement=False
+        )
     
     enrollment_date=Column(Date, default=date.today)
 
@@ -61,7 +63,6 @@ class Course(Base):
     enrollments=relationship('Enrollment',back_populates='course')
     assignments = relationship('Assignment',back_populates='course')
 
-
 # defining table name(Assignments)
 class Assignment(Base):
     __tablename__='assignment'
@@ -82,12 +83,14 @@ class Grade(Base):
     student_id=Column(
         Integer,ForeignKey('student.id'),
         primary_key=True,
-        autoincrement=False)
+        autoincrement=False
+        )
     
     assignment_id=Column(
         Integer,ForeignKey('assignment.id'),
         primary_key=True,
-        autoincrement=False)
+        autoincrement=False
+        )
     
     score=Column(Integer)
     student=relationship('Student',back_populates='grades')
