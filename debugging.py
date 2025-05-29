@@ -40,7 +40,7 @@ Enrollment(student=student_10,course=course_4,enrollment_date=date(2025,2,6))
 ]
 
 # assignment to grade
-term_three_exam = Assignment(title="term three exam",max_score=20, course=course_10)
+term_three_exam = Assignment(title="term three exam",max_score=100, course=course_10)
 
 grades=[
 Grade(student=student_5,assignment=term_three_exam,score=89),
