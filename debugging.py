@@ -1,4 +1,4 @@
-from trial import Student ,Course ,session ,Enrollment ,date ,Grade,Assignment
+from models import Student ,Course ,session ,Enrollment ,date ,Grade,Assignment
 from sqlalchemy import func
 
 # create student object
