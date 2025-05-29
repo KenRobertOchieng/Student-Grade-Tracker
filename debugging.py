@@ -68,8 +68,8 @@ session.add_all([student_1,student_2,student_3,student_4,student_5,
 session.commit()
 
 # filter all students
-# all_the_students=session.query(Student).all()
-# print(all_the_students)
+all_the_students=session.query(Student).all()
+print(all_the_students)
 
 # filter a single student by mail
 my_filter=session.query(Student).filter_by(email='mainalucky@gmail.com').first()
@@ -83,10 +83,10 @@ else:
     print("No student found with that email.")
 
 # across all students—show everyone’s average:
-# averages = (session.query(Student.first_name,func.avg(Grade.score).label("avg_score")).join(Grade).group_by(Student.id).all())
+averages = (session.query(Student.first_name,func.avg(Grade.score).label("avg_score")).join(Grade).group_by(Student.id).all())
 
-# for name, avg in averages:
-#     print(f"{name}: {avg:.1f}")    
+for name, avg in averages:
+    print(f"{name}: {avg:.1f}")    
 
 
 
