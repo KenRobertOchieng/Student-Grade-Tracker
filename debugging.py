@@ -15,15 +15,15 @@ student_10=Student(first_name='zakayo',last_name='ibrahim',email='zakayoibrahim@
 
 # create courses object
 course_1=Course(code=104,title='mathematics',semester=2)
-course_2=Course(code=104,title='geography',semester=10)
-course_3=Course(code=104,title='physics',semester=8)
-course_4=Course(code=104,title='chemistry',semester=1)
-course_5=Course(code=104,title='english',semester=5)
-course_6=Course(code=104,title='business',semester=3)
-course_7=Course(code=104,title='history',semester=9)
-course_8=Course(code=104,title='computer science',semester=4)
-course_9=Course(code=104,title='kiswahili',semester=6)
-course_10=Course(code=104,title='IT',semester=7)
+course_2=Course(code=783,title='geography',semester=10)
+course_3=Course(code=341,title='physics',semester=8)
+course_4=Course(code=90,title='chemistry',semester=1)
+course_5=Course(code=113,title='english',semester=5)
+course_6=Course(code=237,title='business',semester=3)
+course_7=Course(code=111,title='history',semester=9)
+course_8=Course(code=146,title='computer science',semester=4)
+course_9=Course(code=122,title='kiswahili',semester=6)
+course_10=Course(code=114,title='IT',semester=7)
 
 #links
 enrollments=[
@@ -33,24 +33,24 @@ Enrollment(student=student_3,course=course_1,enrollment_date=date(2020,5,27)),
 Enrollment(student=student_4,course=course_4,enrollment_date=date(2013,6,1)),
 Enrollment(student=student_5,course=course_5,enrollment_date=date(2021,1,20)),
 Enrollment(student=student_6,course=course_3,enrollment_date=date(2022,4,19)),
-Enrollment(student=student_7,course=course_5,enrollment_date=date(2015,12,25)),
+Enrollment(student=student_7,course=course_8,enrollment_date=date(2015,12,25)),
 Enrollment(student=student_8,course=course_10,enrollment_date=date(2024,9,15)),
 Enrollment(student=student_9,course=course_2,enrollment_date=date(2024,9,11)),
-Enrollment(student=student_10,course=course_4,enrollment_date=date(2025,2,6))
+Enrollment(student=student_10,course=course_9,enrollment_date=date(2025,2,6))
 ]
 
 # assignment to grade
-term_three_exam = Assignment(title="term three exam",max_score=100, course=course_10)
+term_three_exam = Assignment(title="term three exam",max_score=50, course=course_10)
 
 grades=[
-Grade(student=student_5,assignment=term_three_exam,score=89),
+Grade(student=student_1,assignment=term_three_exam,score=89),
 Grade(student=student_2,assignment=term_three_exam,score=66),
 Grade(student=student_3,assignment=term_three_exam,score=79),
-Grade(student=student_2,assignment=term_three_exam,score=99),
+Grade(student=student_4,assignment=term_three_exam,score=99),
 Grade(student=student_5,assignment=term_three_exam,score=65),
-Grade(student=student_3,assignment=term_three_exam,score=76),
-Grade(student=student_2,assignment=term_three_exam,score=40),
-Grade(student=student_10,assignment=term_three_exam,score=54),
+Grade(student=student_6,assignment=term_three_exam,score=76),
+Grade(student=student_7,assignment=term_three_exam,score=40),
+Grade(student=student_8,assignment=term_three_exam,score=54),
 Grade(student=student_9,assignment=term_three_exam,score=100),
 Grade(student=student_10,assignment=term_three_exam,score=84)
 ]
@@ -60,8 +60,7 @@ session.add_all([student_1,student_2,student_3,student_4,student_5,
                  student_6,student_7,student_8,student_9,student_10,
                  course_1,course_2,course_3,course_4,course_5,course_6,
                  course_7,course_8,course_9,course_10,
-                 *enrollments,term_three_exam,
-                 term_three_exam,*grades
+                 *enrollments,term_three_exam,*grades
 ])
 
 # commit changes
@@ -72,7 +71,7 @@ all_the_students=session.query(Student).all()
 print(all_the_students)
 
 # filter a single student by mail
-my_filter=session.query(Student).filter_by(email='mainalucky@gmail.com').first()
+my_filter=session.query(Student).filter_by(email='pedroyamal@gmail.com').first()
 
 # list all enrollments for a student (and the course + date)
 if my_filter:
@@ -83,10 +82,18 @@ else:
     print("No student found with that email.")
 
 # across all students—show everyone’s average:
-averages = (session.query(Student.first_name,func.avg(Grade.score).label("avg_score")).join(Grade).group_by(Student.id).all())
+avgs = (
+        session.query(
+            Student.first_name,
+            func.avg(Grade.score).label('avg_score')
+        )
+        .join(Grade)
+        .group_by(Student.id)
+        .all()
+    )
+for name, avg in avgs:
+        print(f"  {name}: {avg:.1f}")
 
-for name, avg in averages:
-    print(f"{name}: {avg:.1f}")    
 
 
 
